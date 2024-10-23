@@ -40,6 +40,7 @@ def entrega():
         matricula = request.form['matricula']
         camisa = 'camisa' in request.form
         calca = 'calca' in request.form
+        sapato = 'sapato' in request.form
         observacao = request.form['observacao']
         
         # Verifica se pode registrar nova entrega
@@ -59,11 +60,12 @@ def entrega():
                 if datetime.now() < seis_meses_depois:
                     return f"Entrega não permitida. Próxima entrega permitida após: {seis_meses_depois.strftime('%d/%m/%Y')}"
             
-            # Registrar nova entrega, verificando camisa e calça separadamente
+            # Registrar nova entrega, verificando camisa, calça e sapato separadamente
             data_entrega = datetime.now().strftime('%Y-%m-%d')
-            cursor.execute("INSERT INTO entregas (funcionario_id, data_entrega, camisa, calca, observacao) VALUES (%s, %s, %s, %s, %s)", 
-                           (funcionario_id, data_entrega, camisa, calca, observacao))
+            cursor.execute("INSERT INTO entregas (funcionario_id, data_entrega, camisa, calca, sapato, observacao) VALUES (%s, %s, %s, %s, %s, %s)", 
+               (funcionario_id, data_entrega, camisa, calca, sapato, observacao))
             conn.commit()
+
         conn.close()
         return redirect(url_for('index'))
     
@@ -84,6 +86,7 @@ def consulta():
             SELECT f.nome, f.matricula, 
                    CASE WHEN e.camisa = 1 THEN e.data_entrega ELSE NULL END AS data_camisa, 
                    CASE WHEN e.calca = 1 THEN e.data_entrega ELSE NULL END AS data_calca,
+                    e.sapato,
                    e.observacao
             FROM entregas e
             JOIN funcionarios f ON e.funcionario_id = f.id

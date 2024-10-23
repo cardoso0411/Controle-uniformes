@@ -30,6 +30,7 @@
                         <th>Matrícula</th>
                         <th>Data de Retirada (Camisa)</th>
                         <th>Data de Retirada (Calça)</th>
+                         <th>Retirada de Sapato</th>
                         <th>Observações</th>
                     </tr>
                 </thead>
@@ -40,6 +41,7 @@
                         <td>{{ registro.matricula }}</td>
                         <td>{{ registro.data_camisa }}</td>
                         <td>{{ registro.data_calca }}</td>
+                        <td>{% if registro.sapato %} Sim {% else %} Não {% endif %}</td>
                         <td>{{ registro.observacao }}</td>
                     </tr>
                     {% endfor %}

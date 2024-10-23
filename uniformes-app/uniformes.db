@@ -1,0 +1,17 @@
+USE uniformes_db;
+
+CREATE TABLE funcionarios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100),
+    matricula VARCHAR(50) UNIQUE
+);
+
+CREATE TABLE entregas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    funcionario_id INT,
+    data_entrega DATE,
+    camisa BOOLEAN,
+    calca BOOLEAN,
+    observacao TEXT,
+    FOREIGN KEY (funcionario_id) REFERENCES funcionarios(id)
+);

@@ -1,1 +1,1 @@
-SELECT * FROM entregas
+SELECT * FROM funcionarios
